@@ -81,17 +81,29 @@
         num++;
     });
 
-    //quantity가 바뀔때마다
-    $(document).on("change", ".quantity", function(){
-        const divNum = $(this).closest('.testdiv').attr('id');
-        const productPrice = orders[divNum].products[0].productPrice;
+    // totalQuantity 값이 바뀔 때
+    $(document).on("change", ".totalQuantity", function(){
+        const thisIcecream = $(this).closest('.testdiv').val();
         const quantity = $(this).val();
-        const additionalPrice = orders[divNum].toppings[0].additionalPrice;
-        const toppingsQuantity = $(this).closest('.testdiv').find('.toppings').val();
-        total = total - (parseInt(productPrice) + parseInt(additionalPrice));
-        total = total + (parseInt(productPrice) + (parseInt(additionalPrice) * parseInt(toppingsQuantity))* parseInt(quantity)) ;
+        const divNum = $(this).closest('.testdiv').attr('id');
+
+        // orders 배열에서 원래 수량 가져오기
+        const originalQuantity = orders[divNum].products[0].quantity;
+        if(quantity > originalQuantity){ // 수량이 증가했을 때
+            const price = parseInt(thisIcecream) * (parseInt(quantity) - parseInt(originalQuantity));
+            total = total + price;
+        }else if(quantity < originalQuantity){ // 수량이 감소했을 때
+            const price = parseInt(thisIcecream) * (parseInt(originalQuantity) - parseInt(quantity));
+            total = total - price;
+        }
+        orders[divNum].products[0].quantity = quantity;
         $('#total').text("총 금액 : " + total);
     });
+
+    // toppings 값이 바뀔 때
+
+
+
 
     // 라디오버튼 중 첫번째 checked
     $('input:radio[name=product]').first().attr("checked",true);
