@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>아이스크림 주문하기</title>
+</head>
+<body>
+
+<h1>아이스크림 주문 페이지</h1>
+
+<h2>제품 선택</h2>
+<div class="pd_div">
+    <label>아이스크림 종류:</label><br>
+    <label th:each="pdList, num : ${pdList}">
+        <input type="radio" name="product" th:value="${pdList.productId}">
+        <span th:text="${pdList.productName}"></span><small th:text="${pdList.price}"></small><br>
+    </label>
+</div>
+
+<h2>토핑 선택</h2>
+<div class="pd_div">
+    <label>추가 토핑:</label><br>
+    <label th:each="tpList, num : ${tpList}">
+        <input type="checkbox" name="toppings" th:value="${tpList.toppingId}">
+        <span th:text="${tpList.toppingName}"></span><small th:text="${tpList.additionalPrice}"></small><br>
+    </label>
+</div><br>
+
+<form action="orderSuccess" id="formTest" method="post">
+    <input type="button" value="담기" id="test" class="btn btn-primary">
+    <input type="submit" value="주문하기" id="orderSubmit" class="btn btn-success">
+    <input type="button" value="초기화" id="resetBtn" class="btn btn-warning">
+    <input type="button" value="이전 주문 내역" class="orderHisBtn btn btn-info">
+    <input type="button" value="관리" id="management" class="btn btn-secondary">
+</form>
+<div></div>
+
+</body>
+</html>

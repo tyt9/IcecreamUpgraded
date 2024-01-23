@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>아이스크림 주문하기</title>
+</head>
+<body>
+<h1>아이스크림 주문 페이지</h1>
+
+<h3>제품 선택</h3>
+<div>
+    아이스크림 종류:<br>
+    <th:block th:each="product : ${product}">
+        <input type="radio" name="product" th:value="${product}" th:attr="data-productid=${product.productId}">
+        <span th:text="${product.productName}"></span><small th:text="${product.price}"></small><br>
+    </th:block>
+</div>
+
+<h3>토핑 선택</h3>
+<div>
+    토핑 종류:<br>
+    <th:block th:each="topping : ${topping}">
+        <input type="checkbox" name="topping" th:value="${topping}" th:attr="data-toppingid=${topping.toppingId}">
+        <span th:text="${topping.toppingName}"></span><small th:text="${topping.additionalPrice}"></small><br>
+    </th:block>
+</div><br>
+
+<form action="orderSuccess" id="formTest" method="post">
+    <input type="button" id="addBtn" value="담기">
+    <input type="submit" id="orderSubmit" value="주문하기">
+</form>
+
+<h3><div id="total"></div></h3>
+
+</body>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    let num = 0;
+    const formTest = $('#formTest');
+    const orders = [];
+    var total = 0;
+
+    // -- 담기버튼 이벤트 --
+    $('#addBtn').click(function () {
+        let thisIcecream = 0;
+        //num 재설정
+        num = $('.testdiv').length;
+        const order = {products: [], toppings: []};
+        const productId = $('input[name="product"]:checked').data('productid');
+        const productName = $('input[name="product"]:checked').next().text();
+        const productPrice = $('input[name="product"]:checked').next().next().text();
+        const product = {productId: productId, productName: productName, quantity: 1, productPrice: productPrice};
+        order.products.push(product);
+        formTest.append("<hr><div id='"+num+"' class='testdiv' style='min-height: 50px'>"
+            +"<div style='float: right;'><input type='button' class='addDel' value='삭제'>"
+            +"<br><input type='number' class='quantity totalQuantity' value='1' style='width: 35px'></div>"
+            +"<div>| 상품명 : "+productName+"</div>"
+            +"</div>");
+        total = total + parseInt(productPrice);
+        thisIcecream = parseInt(productPrice);
+        $('input:checkbox[name=topping]').each(function () {
+            if ($(this).is(":checked")) {
+                const toppingId = $(this).data('toppingid');
+                const toppingName = $(this).next().text();
+                const additionalPrice = $(this).next().next().text();
+                const topping = {toppingId: toppingId, toppingName: toppingName, quantity: 1, additionalPrice: additionalPrice};
+                order.toppings.push(topping);
+                const divNum = "#" + num;
+                const div = $(divNum);
+                div.append("<div>| 토핑명 : "+toppingName+"&nbsp<input type='number' class='quantity toppings' value='1' style='width: 25px'></div>");
+                total = total + parseInt(additionalPrice);
+                thisIcecream = thisIcecream + parseInt(additionalPrice);
+            }
+        });
+        $('#total').text("총 금액 : " + total);
+        $('#'+num).val(thisIcecream);
+        // console.log('this ? '+$(this).attr('id'));
+        // console.log(order);
+        // console.log(orders);
+        orders.push(order);
+        num++;
+    });
+
+    //quantity가 바뀔때마다
+    $(document).on("change", ".quantity", function(){
+        const divNum = $(this).closest('.testdiv').attr('id');
+        const productPrice = orders[divNum].products[0].productPrice;
+        const quantity = $(this).val();
+        const additionalPrice = orders[divNum].toppings[0].additionalPrice;
+        const toppingsQuantity = $(this).closest('.testdiv').find('.toppings').val();
+        total = total - (parseInt(productPrice) + parseInt(additionalPrice));
+        total = total + (parseInt(productPrice) + (parseInt(additionalPrice) * parseInt(toppingsQuantity))* parseInt(quantity)) ;
+        $('#total').text("총 금액 : " + total);
+    });
+
+    // 라디오버튼 중 첫번째 checked
+    $('input:radio[name=product]').first().attr("checked",true);
+
+    // -- 주문하기 버튼 이벤트 --
+    $('#orderSubmit').click(function(){
+        if($('#0').length === 0){
+            alert("아이스크림 선택~!");
+            return false;
+        }else{
+            if (confirm("주문하시겠습니까?")) {
+                // $('.testdiv').each(function() {
+                //     const order = {product: [], toppings: []};
+                //
+                // });
+            } else {
+                return false;
+            }
+        }
+    });
+
+    // -- 삭제버튼 이벤트 --
+    $(document).on("click", ".addDel", function(){
+        //orders 배열의 원소 삭제
+        const divNum = $(this).closest('.testdiv').attr('id');
+        console.log(divNum);
+        orders.splice(divNum, 1);
+        //total 값 변경
+        total = total - parseInt($('#'+ divNum).val());
+        $('#total').text("총 금액 : " + total);
+        //요소 삭제
+        $(this).closest('.testdiv').prev('hr').remove();
+        $(this).closest('.testdiv').remove();
+        //testdiv의 원소 하나가 삭제될 때 마다 id값 재설정
+        let i = 0;
+        $('.testdiv').each(function() {
+            $(this).attr('id', i);
+            i++;
+        });
+    });
+
+
+
+
+</script>
+</html>
