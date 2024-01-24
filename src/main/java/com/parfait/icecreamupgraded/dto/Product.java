@@ -10,6 +10,6 @@ import lombok.*;
 public class Product {
     private String productId;
     private String productName;
-    private int price;
-    private int stockQuantity;
+    private int quantity;
+    private int productPrice;
 }

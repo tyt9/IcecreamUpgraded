@@ -10,6 +10,6 @@ import lombok.*;
 public class Topping {
     private String toppingId;
     private String toppingName;
+    private int quantity;
     private int additionalPrice;
-    private int stockQuantity;
 }

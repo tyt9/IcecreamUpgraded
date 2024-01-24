@@ -5,11 +5,25 @@
 
 <mapper namespace="com.parfait.icecreamupgraded.dao.IcecreamDao">
 
-    <select id="selectProduct" resultType="com.parfait.icecreamupgraded.dto.Product">
+    <resultMap id="product" type="com.parfait.icecreamupgraded.dto.Product">
+        <result property="productId" column="ProductID"/>
+        <result property="productName" column="ProductName"/>
+        <result property="quantity" column="StockQuantity"/>
+        <result property="productPrice" column="Price"/>
+    </resultMap>
+
+    <resultMap id="topping" type="com.parfait.icecreamupgraded.dto.Topping">
+        <result property="toppingId" column="ToppingID"/>
+        <result property="toppingName" column="ToppingName"/>
+        <result property="quantity" column="StockQuantity"/>
+        <result property="additionalPrice" column="AdditionalPrice"/>
+    </resultMap>
+
+    <select id="selectProduct" resultMap="product">
         select * from product
     </select>
 
-    <select id="selectTopping" resultType="com.parfait.icecreamupgraded.dto.Topping">
+    <select id="selectTopping" resultMap="topping">
         select * from topping
     </select>
 
