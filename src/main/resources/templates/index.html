@@ -135,12 +135,25 @@
         }else{
             if (confirm("주문하시겠습니까?")) {
                 $.ajax({
-                    url: '/orders',
+                    url: '/createOrder',
                     type: 'POST',
                     contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify(orders),
+                    data: JSON.stringify(total),
                     success: function(data) {
-                        location.href = "/orderSuccess";
+
+                        $.ajax({
+                            url: '/orders',
+                            type: 'POST',
+                            contentType: 'application/json; charset=UTF-8',
+                            data: JSON.stringify(orders),
+                            success: function(data) {
+                                location.href = "/orderSuccess";
+                            },
+                            error: function(error) {
+                                // 오류 처리
+                                console.error('Error:', error);
+                            }
+                        });
                     },
                     error: function(error) {
                         // 오류 처리
@@ -169,7 +182,6 @@
             i++;
         });
         //orders 배열의 원소 삭제
-        console.log(divNum);
         orders.splice(divNum, 1);
     });
 

@@ -2,18 +2,14 @@ package com.parfait.icecreamupgraded.dto;
 
 import lombok.*;
 
-import java.util.Date;
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Orders {
+public class OrderDetail {
+    private int detailId;
     private int orderId;
-    private Date orderDateTime;
-    private int totalAmount;
-    private int del;
-
+    private String productId;
+    private int quantity;
 }

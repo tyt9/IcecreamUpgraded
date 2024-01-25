@@ -27,4 +27,27 @@
         select * from topping
     </select>
 
+    <insert id="insertOrder" parameterType="int">
+        insert into orders(OrderID, OrderDateTime, TotalAmount, del)
+        values (0, now(), #{totalPrice}, 0)
+    </insert>
+
+    <select id="selectOrderId" resultType="int">
+        SELECT MAX(OrderID) from orders
+    </select>
+
+    <insert id="insertOrderDetail" parameterType="com.parfait.icecreamupgraded.dto.OrderDetail">
+        insert into orderdetail(DetailID, OrderID, ProductID, Quantity)
+        values (0, #{orderId}, #{productId}, #{quantity})
+    </insert>
+
+    <insert id="insertToppingDetail" parameterType="com.parfait.icecreamupgraded.dto.ToppingDetail">
+        insert into toppingdetail(ToppingDetailID, OrderDetailID, ToppingID, ToppingQuantity)
+        values (0, #{orderDetailId}, #{toppingId}, #{toppingQuantity})
+    </insert>
+
+    <select id="selectOrderDetailId" resultType="int">
+        SELECT MAX(DetailID) from orderdetail
+    </select>
+
 </mapper>

@@ -1,7 +1,9 @@
 package com.parfait.icecreamupgraded.dao;
 
+import com.parfait.icecreamupgraded.dto.OrderDetail;
 import com.parfait.icecreamupgraded.dto.Product;
 import com.parfait.icecreamupgraded.dto.Topping;
+import com.parfait.icecreamupgraded.dto.ToppingDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,4 +13,9 @@ import java.util.Map;
 public interface IcecreamDao {
     public List<Product> selectProduct();
     public List<Topping> selectTopping();
+    public void insertOrder(int totalPrice);
+    public int selectOrderId();
+    public void insertOrderDetail(OrderDetail orderDetail);
+    public void insertToppingDetail(ToppingDetail toppingDetail);
+    public int selectOrderDetailId();
 }
