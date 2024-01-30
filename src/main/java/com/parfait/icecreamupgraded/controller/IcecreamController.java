@@ -57,7 +57,9 @@ public class IcecreamController {
 
     @GetMapping("/orderSuccess")
     public void orderSuccess(Model model){
-        System.out.println("주문 성공");
+        System.out.println("최종 주문 성공");
+        model.addAttribute("orderInfo", icecreamDao.selectOrderInfo(icecreamDao.selectOrderId()));
+        System.out.println(icecreamDao.selectOrderInfo(icecreamDao.selectOrderId()));
     }
 
 }

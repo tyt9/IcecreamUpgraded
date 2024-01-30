@@ -50,4 +50,22 @@
         SELECT MAX(DetailID) from orderdetail
     </select>
 
+    <select id="selectOrderInfo" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.OrderInfo">
+        SELECT
+        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID,
+        GROUP_CONCAT(DISTINCT t.ToppingDetailID) AS ToppingDetailID,
+        GROUP_CONCAT(DISTINCT t.ToppingID) AS ToppingID,
+        GROUP_CONCAT(DISTINCT p.ProductName) AS ProductName,
+        GROUP_CONCAT(DISTINCT top.ToppingName) AS ToppingName
+        FROM orders o
+        LEFT OUTER JOIN orderdetail d ON o.OrderID = d.OrderID
+        LEFT OUTER JOIN toppingdetail t ON d.DetailID = t.OrderDetailID
+        LEFT OUTER JOIN Product p ON d.ProductID = p.ProductID
+        LEFT OUTER JOIN Topping top ON t.ToppingID = top.ToppingID
+        WHERE o.OrderID = #{orderId}
+        GROUP BY
+        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID
+        ORDER BY o.OrderID DESC;
+    </select>
+
 </mapper>

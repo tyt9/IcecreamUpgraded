@@ -29,6 +29,7 @@
 <form action="orderSuccess" id="formTest" method="post">
     <input type="button" id="addBtn" value="담기">
     <input type="button" id="orderSubmit" value="주문하기">
+    <input type="button" id="resetBtn" value="초기화">
 </form>
 
 <h3><div id="total"></div></h3>
@@ -185,6 +186,10 @@
         orders.splice(divNum, 1);
     });
 
+    // -- 초기화 버튼 이벤트 --
+    $('#resetBtn').click(function(){
+        location.reload();
+    });
 
 
 

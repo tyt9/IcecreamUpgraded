@@ -6,6 +6,19 @@
     <title>Title</title>
 </head>
 <body>
+<h2>주문 성공</h2>
 
+<h3>주문 내역</h3>
+<div th:each="order : ${orderInfo}">
+    <div th:if="${order.orderId != prevOrderId}">
+        <h2><span>주문 번호: [[${order.orderId}]]</span></h2>
+        <h3><span>총 금액: [[${order.totalAmount}]]</span></h3>
+        <p>주문 날짜: [[${order.orderDateTime}]]</p>
+    </div>
+    <p>아이스크림 이름: [[${order.productName}]]</p>
+    <p>토핑 이름: [[${order.toppingName}]]</p>
+    <br>
+    <th:block th:with="prevOrderId=${order.orderId}"></th:block>
+</div>
 </body>
 </html>
