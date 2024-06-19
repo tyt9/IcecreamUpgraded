@@ -12,10 +12,12 @@ public interface IcecreamDao {
     public List<Topping> selectTopping();
     public void insertOrder(int totalPrice);
     public int selectOrderId();
+    public List<Orders> selectOrders();
     public void insertOrderDetail(OrderDetail orderDetail);
     public void insertToppingDetail(ToppingDetail toppingDetail);
     public int selectOrderDetailId();
     public List<OrderInfo> selectOrderInfo(int orderId);
+    public List<OrderInfo> selectOrderInfos();
     public List<OrderDetailPlusName> selectOrderInfoToOrderId(int orderId);
     public List<ToppingDetailPlusName> selectToppingDetailToDetailId(int orderDetailId);
 }

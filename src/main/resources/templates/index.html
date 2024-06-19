@@ -30,6 +30,7 @@
     <input type="button" id="addBtn" value="담기">
     <input type="button" id="orderSubmit" value="주문하기">
     <input type="button" id="resetBtn" value="초기화">
+    <input type="button" id="orderHistory" value="이전 주문 내역">
 </form>
 
 <h3><div id="total"></div></h3>
@@ -191,6 +192,10 @@
         location.reload();
     });
 
+    // -- 주문 히스토리 가기 이벤트 --
+    $('#orderHistory').click(function(){
+        location.href = "/orderHistory";
+    });
 
 
 

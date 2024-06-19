@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>이전 주문 내역</title>
+</head>
+<body>
+
+<h2>주문 내역</h2>
+<hr>
+<th:block th:each="order, iterStat : ${orders}">
+    <h3><p>주문번호 : [[${order.orderId}]]</p></h3>
+    <h3><p>주문시간 : <th:block th:text="${#dates.format(order.orderDateTime, 'yyyy-MM-dd HH:mm:ss')}"/></p></h3>
+    <h3><p>총 금액 : [[${order.totalAmount}]]</p></h3>
+<th:block th:each="orderDetail, iterStat : ${orderDetails}">
+    <th:block th:if="${orderDetail.orderId == order.orderId}">
+        <p>아이스크림 이름 : [[${orderDetail.productName}]] - [[${orderDetail.quantity}]]개</p>
+        <th:block th:each="topping, iterStat : ${toppingDetails}">
+            <th:block th:if="${topping.orderDetailId == orderDetail.detailId}">
+                <p>옵션 : [[${topping.toppingName}]] - [[${topping.toppingQuantity}]]개</p>
+            </th:block>
+
+
+
+        </th:block>
+    </th:block>
+</th:block>
+    <hr>
+</th:block>
+
+</body>
+</html>

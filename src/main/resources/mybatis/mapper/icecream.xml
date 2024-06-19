@@ -36,6 +36,11 @@
         SELECT MAX(OrderID) from orders
     </select>
 
+    <select id="selectOrders" resultType="com.parfait.icecreamupgraded.dto.Orders">
+        SELECT * from orders
+        ORDER BY OrderID DESC;
+    </select>
+
     <insert id="insertOrderDetail" parameterType="com.parfait.icecreamupgraded.dto.OrderDetail">
         insert into orderdetail(DetailID, OrderID, ProductID, Quantity)
         values (0, #{orderId}, #{productId}, #{quantity})
@@ -68,18 +73,43 @@
         ORDER BY o.OrderID DESC;
     </select>
 
+    <select id="selectOrderInfos" resultType="com.parfait.icecreamupgraded.dto.OrderInfo">
+        SELECT
+            o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID, d.Quantity, t.ToppingQuantity,
+            GROUP_CONCAT(DISTINCT t.ToppingDetailID) AS ToppingDetailID,
+            GROUP_CONCAT(DISTINCT t.ToppingID) AS ToppingID,
+            GROUP_CONCAT(DISTINCT p.ProductName) AS ProductName,
+            GROUP_CONCAT(DISTINCT top.ToppingName) AS ToppingName
+        FROM orders o
+                 LEFT OUTER JOIN orderdetail d ON o.OrderID = d.OrderID
+                 LEFT OUTER JOIN toppingdetail t ON d.DetailID = t.OrderDetailID
+                 LEFT OUTER JOIN Product p ON d.ProductID = p.ProductID
+                 LEFT OUTER JOIN Topping top ON t.ToppingID = top.ToppingID
+        GROUP BY
+            o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID, d.Quantity, t.ToppingQuantity
+        ORDER BY o.OrderID DESC;
+    </select>
+
     <select id="selectOrderInfoToOrderId" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.OrderDetailPlusName">
         select od.DetailID, od.OrderID, od.ProductID, od.Quantity, p.ProductName
         from orderdetail od
                  LEFT OUTER JOIN product p ON od.ProductID = p.ProductID
-        where OrderID = #{orderId};
+        <where>
+            <if test="orderId != 0">
+                OrderID = #{orderId};
+            </if>
+        </where>
     </select>
 
     <select id="selectToppingDetailToDetailId" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.ToppingDetailPlusName">
         select td.ToppingDetailID, td.OrderDetailID, td.ToppingID, td.ToppingQuantity, t.toppingName
         from toppingdetail td
                  LEFT OUTER JOIN Topping t ON td.ToppingID = t.ToppingID
-        where OrderDetailID = #{orderDetailId};
+        <where>
+            <if test="orderDetailId != 0">
+                OrderDetailID = #{orderDetailId};
+            </if>
+        </where>
     </select>
 
 

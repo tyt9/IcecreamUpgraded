@@ -68,4 +68,12 @@ public class IcecreamController {
 
     }
 
+    @GetMapping("/orderHistory")
+    public void orderHistory(Model model){
+        model.addAttribute("orders", icecreamDao.selectOrders());
+        model.addAttribute("orderDetails", icecreamDao.selectOrderInfoToOrderId(0)); // 파라미터가 없을 때 0을 넣어주세요
+        model.addAttribute("toppingDetails", icecreamDao.selectToppingDetailToDetailId(0)); // 파라미터가 없을 때 0을 넣어주세요
+
+    }
+
 }
