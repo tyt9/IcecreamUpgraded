@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="/static/favicon-96x96.png">
@@ -9,16 +9,27 @@
 <h2>주문 성공</h2>
 
 <h3>주문 내역</h3>
-<div th:each="order : ${orderInfo}">
-    <div th:if="${order.orderId != prevOrderId}">
-        <h2><span>주문 번호: [[${order.orderId}]]</span></h2>
-        <h3><span>총 금액: [[${order.totalAmount}]]</span></h3>
-        <p>주문 날짜: [[${order.orderDateTime}]]</p>
-    </div>
-    <p>아이스크림 이름: [[${order.productName}]]</p>
-    <p>토핑 이름: [[${order.toppingName}]]</p>
-    <br>
-    <th:block th:with="prevOrderId=${order.orderId}"></th:block>
+<div th:each="order, iterStat : ${orderInfo}">
+    <th:block th:if="${iterStat.index == 0}">
+        <h3><p>주문번호 : [[${order.orderId}]]</p></h3>
+        <h3><p>주문시간 : <th:block th:text="${#dates.format(order.orderDateTime, 'yyyy-MM-dd HH:mm:ss')}"/></p></h3>
+        <h3><p>총 금액 : [[${order.totalAmount}]]</p></h3>
+    </th:block>
 </div>
+<hr>
+<th:block th:each="orderDetail, iterStat : ${test}">
+    <p>아이스크림 이름 : [[${orderDetail.productName}]]</p>
+    <p>아이스크림 수량 : [[${orderDetail.quantity}]]</p>
+<th:block th:each="topping, iterStat : ${test2}">
+<th:block th:each="toppingDetail, iterStat : ${topping}">
+<th:block th:if="${toppingDetail.orderDetailId == orderDetail.detailId}">
+
+        <p>옵션 : [[${toppingDetail.toppingName}]] - [[${toppingDetail.toppingQuantity}]]개</p>
+</th:block>
+</th:block>
+</th:block>
+    <hr>
+</th:block>
+
 </body>
 </html>

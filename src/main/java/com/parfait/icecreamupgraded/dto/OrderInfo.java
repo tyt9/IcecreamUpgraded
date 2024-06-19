@@ -20,4 +20,6 @@ public class OrderInfo {
     private String toppingId;
     private String productName;
     private String toppingName;
+    private int quantity;
+    private int toppingQuantity;
 }

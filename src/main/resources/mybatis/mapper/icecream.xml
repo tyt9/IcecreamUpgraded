@@ -52,7 +52,7 @@
 
     <select id="selectOrderInfo" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.OrderInfo">
         SELECT
-        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID,
+        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID, d.Quantity, t.ToppingQuantity,
         GROUP_CONCAT(DISTINCT t.ToppingDetailID) AS ToppingDetailID,
         GROUP_CONCAT(DISTINCT t.ToppingID) AS ToppingID,
         GROUP_CONCAT(DISTINCT p.ProductName) AS ProductName,
@@ -64,8 +64,24 @@
         LEFT OUTER JOIN Topping top ON t.ToppingID = top.ToppingID
         WHERE o.OrderID = #{orderId}
         GROUP BY
-        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID
+        o.OrderID, o.OrderDateTime, o.TotalAmount, d.DetailID, d.ProductID, d.Quantity, t.ToppingQuantity
         ORDER BY o.OrderID DESC;
     </select>
+
+    <select id="selectOrderInfoToOrderId" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.OrderDetailPlusName">
+        select od.DetailID, od.OrderID, od.ProductID, od.Quantity, p.ProductName
+        from orderdetail od
+                 LEFT OUTER JOIN product p ON od.ProductID = p.ProductID
+        where OrderID = #{orderId};
+    </select>
+
+    <select id="selectToppingDetailToDetailId" parameterType="int" resultType="com.parfait.icecreamupgraded.dto.ToppingDetailPlusName">
+        select td.ToppingDetailID, td.OrderDetailID, td.ToppingID, td.ToppingQuantity, t.toppingName
+        from toppingdetail td
+                 LEFT OUTER JOIN Topping t ON td.ToppingID = t.ToppingID
+        where OrderDetailID = #{orderDetailId};
+    </select>
+
+
 
 </mapper>

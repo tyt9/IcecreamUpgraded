@@ -1,10 +1,7 @@
 package com.parfait.icecreamupgraded.controller;
 
 import com.parfait.icecreamupgraded.dao.IcecreamDao;
-import com.parfait.icecreamupgraded.dto.Order;
-import com.parfait.icecreamupgraded.dto.OrderDetail;
-import com.parfait.icecreamupgraded.dto.Orders;
-import com.parfait.icecreamupgraded.dto.ToppingDetail;
+import com.parfait.icecreamupgraded.dto.*;
 import com.parfait.icecreamupgraded.service.OrderService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,7 +57,15 @@ public class IcecreamController {
     public void orderSuccess(Model model){
         System.out.println("최종 주문 성공");
         model.addAttribute("orderInfo", icecreamDao.selectOrderInfo(icecreamDao.selectOrderId()));
-        System.out.println(icecreamDao.selectOrderInfo(icecreamDao.selectOrderId()));
+        List<OrderDetailPlusName> test = icecreamDao.selectOrderInfoToOrderId(icecreamDao.selectOrderId());
+        model.addAttribute("test", test);
+        List<List<ToppingDetailPlusName>> toppingDetail = new ArrayList<>();
+        for (OrderDetailPlusName orderInfo : test) {
+            toppingDetail.add(icecreamDao.selectToppingDetailToDetailId(orderInfo.getDetailId()));
+
+        }
+        model.addAttribute("test2", toppingDetail);
+
     }
 
 }

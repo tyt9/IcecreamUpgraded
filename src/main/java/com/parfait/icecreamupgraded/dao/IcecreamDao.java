@@ -16,4 +16,6 @@ public interface IcecreamDao {
     public void insertToppingDetail(ToppingDetail toppingDetail);
     public int selectOrderDetailId();
     public List<OrderInfo> selectOrderInfo(int orderId);
+    public List<OrderDetailPlusName> selectOrderInfoToOrderId(int orderId);
+    public List<ToppingDetailPlusName> selectToppingDetailToDetailId(int orderDetailId);
 }
