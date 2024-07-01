@@ -13,42 +13,35 @@
 ### 달라진 점
 <details><summary><b>예상 금액 표시 기능</b></summary>
   <div>
-    <img src="icecream/WebContent/스크린샷 2024-06-12 145442.png">
+    <img src="src/main/resources/static/스크린샷 2024-07-01 1801541.png">
   </div>
 </details>
 
-     * 아이스크림 한 종류와 토핑(0개 또는 여러개)을 선택하고 담기 버튼을 누르면 장바구니에 추가됨
+     * 장바구니에 담은 아이스크림의 총 예상 금액이 표시됨
      
-<details><summary><b>주문하기</b></summary>
+<details><summary><b>토핑 중복 추가 기능</b></summary>
   <div>
-    <img src="icecream/WebContent/스크린샷 2024-06-12 150051.png">
+    <img src="src/main/resources/static/스크린샷 2024-07-01 1801542.png">
   </div>
 </details>
 
-     * 장바구니에 담긴 아이스크림들이 주문 결정됨
+     * 같은 토핑을 여러번 추가할 수 있음
 
-<details><summary><b>이전 주문 내역</b></summary>
+<details><summary><b>아이스크림 조합 갯수 추가 기능</b></summary>
   <div>
-    <img src="icecream/WebContent/스크린샷 2024-06-12 150413.png">
+    <img src="src/main/resources/static/스크린샷 2024-07-01 1801543.png">
   </div>
 </details>
 
-     * 주문 상세 내역이 최신순으로 정렬됨
+     * 동일한 아이스크림과 토핑 조합을 여러 개 추가할 수 있음
 
-<details><summary><b>관리</b></summary>
+<details><summary><b>주문 완료 페이</b></summary>
   <div>
-    <img src="icecream/WebContent/스크린샷 2024-06-12 150640.png">
+    <img src="src/main/resources/static/스크린샷 2024-07-01 1801543.png">
   </div>
 </details>
 
-     * 아이스크림과 토핑 종류 추가
-
-
-
-
-* 예상 금액 표시 기능
-* 같은 토핑을 여러번 추가할 수 있음
-* 동일한 아이스크림과 토핑 조합을 여러 개 추가할 수 있음<br><br>
+     * 동일한 아이스크림과 토핑 조합을 여러 개 추가할 수 있음
 
 
 
@@ -56,46 +49,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Icecream 2.0
-이전에 만든 아이스크림 주문 포스기의 업그레이드 버전<br><br>
-
-이전에 아이스크림 가게 만들 때 아쉬운 점이 많았다.<br>
-1. 예상금액 표시 안되는 점
-2. 토핑 여러번 추가 안되는 점
-3. 같은 조합으로 여러개 추가가 안되는 점
-4. 재고 관리 기능<br>
-
-등이 아쉬워서 고치려고 보니 소스가 너무 복잡했다.<br>
-그래서 고민하다 생각해낸 것이 문자열로 만들지 말고 자바스크립트 객체로 만들어서 넘기면 훨씬 간단할 것 같았다.<br>
-그러려면 소스를 전부 갈아엎어야 하는데...그럴바에야 새로 만드는게 빠를 것 같았다.<br>
-그래서 새로 만들기로 했다<br>
-간단하게 만들기 위해서 Spring Boot와 thymeleaf를 사용했다.<br><br><br>
-일단 오늘까지의 업데이트 상황 : 
-1. 예상금액 표시 완료
-2. 토핑 여러번 추가 가능
-3. 아이스크림 같은 조합으로 여러개 구매 가능
-
-아래서 자세히 설명하겠다.<br><br>
 
 
 아래는 기능설명 입니다.
