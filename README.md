@@ -35,13 +35,13 @@
 
      * 동일한 아이스크림과 토핑 조합을 여러 개 추가할 수 있음
 
-<details><summary><b>주문 완료 페이</b></summary>
+<details><summary><b>주문 완료 페이지</b></summary>
   <div>
-    <img src="src/main/resources/static/스크린샷 2024-07-01 1801543.png">
+    <img src="src/main/resources/static/스크린샷 2024-07-01 181245.png">
   </div>
 </details>
 
-     * 동일한 아이스크림과 토핑 조합을 여러 개 추가할 수 있음
+     * 갯수를 변경할 수 있게 됨에 따라 주문 완료 페이지에도 갯수가 표시됨
 
 
 
