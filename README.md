@@ -43,6 +43,14 @@
 
      * 갯수를 변경할 수 있게 됨에 따라 주문 완료 페이지에도 갯수가 표시됨
 
+<details><summary><b>주문 내역 삭제 버튼 제거</b></summary>
+  <div>
+    <img src="src/main/resources/static/스크린샷 2024-06-19 164509.png">
+  </div>
+</details>
+
+     * 주문 내역 조회 기능의 목적에 맞게 삭제 버튼을 제거함
+
 
 
 
