@@ -7,7 +7,7 @@
 ### 개발 환경
 * Java 11
 * **프레임워크** : Spring Boot(2.7.17)
-* **데이터베이스** : mysql - MyBatis
+* **데이터베이스** : Mysql - MyBatis
 * **프론트** : thymeleaf, javascript, jQuery<br><br>
 
 ### 달라진 점
